@@ -1,0 +1,6 @@
+name: km3net-dataformat
+channels:
+  - conda-forge
+dependencies:
+  - root==6.32.*
+  - cmake==3.*

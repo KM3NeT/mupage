@@ -1,0 +1,14 @@
+build-centos7:
+    image: docker.km3net.de/base/centos-full:7
+    stage: build
+    script:
+        - make
+        
+build-sl5:
+    image: docker.km3net.de/base/sl:5
+    stage: build
+    script:
+        - yum install -y make imake compat-gcc-34-g77 compat-gcc-34-c++ ed openmotif openmotif-devel
+        - ln -s /usr/bin/gcc34 /usr/bin/gcc
+        - ln -s /usr/bin/g++34 /usr/bin/g++
+        - make

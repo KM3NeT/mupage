@@ -1,0 +1,58 @@
+DEPTHmax        2.475    # maximum depth in km (not in km.w.e.)   
+can_center_x     0       # center of can X in m
+can_center_y     0       # center of can Y in m
+Zmin         -278.151    # minimum z in m                   
+Zmax          313.971    # maximum z in m                   
+CANr          238.611    # can radius in m
+EnlargedCANr  100.0      # meters to add to the can radius
+THETAmin        0.0      # minimum zenith angle in degrees  
+THETAmax       85.0      # maximum zenith angle in degrees  
+Rmin            0.0      # minimum radial distribution in m 
+Rmax          100.0      # maximum radial distribution in m 
+Ethreshold      0.001    # minimum energy of threshold in TeV            
+MULTmin         1        # minimum multiplicity             
+MULTmax       100        # maximum multiplicity             
+GEANTid         5        # muon in GEANT nomenclature 
+density         1.03     # mean value of seawater density in g cm^(-3)
+#Emax      100000        # maximum energy of the generated muons in TeV (DEFAULT 500)
+#Original set of parameters from https://doi.org/10.1016/j.astropartphys.2005.10.005
+K0a      0.0072
+K1a      -0.581
+K0b      -1.927
+K1b      0.034
+ni0a     -0.0771
+ni0b     0.524
+ni0c     2.068
+ni1a     0.03
+ni1b     0.47
+BETA     0.42
+g0       -0.232
+g1       3.961
+e0a      0.0304
+e0b      0.359
+e1a      -0.0077
+e1b      0.659
+A0       0.0033
+A1       0.0079
+B0a      0.0407
+B0b      0.0283
+B1a      -0.312
+B1b      6.124
+Q0       0.0543
+Q1       -0.365
+C0a      -0.069
+C0b      0.488
+C1       -0.117
+D0a      -0.398
+D0b      3.955
+D1a      0.012
+D1b      -0.35
+RHO0a    -1.786
+RHO0b    28.26
+RHO1     -1.06
+THETA0   1.3
+Fpiccolo 10.4
+ALPHA0a  -0.448
+ALPHA0b  4.969
+ALPHA1a  0.0194
+ALPHA1b  0.276

@@ -1,0 +1,61 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "KM3NeT Dataformat",
+  "description": "The KM3NeT dataformat library",
+  "identifier": "km3net-dataformat",
+  "codeRepository": "https://git.km3net.de/common/km3net-dataformat",
+  "license": "BSD-3-clause",
+  "version": "3.6.1",
+  "developmentStatus": "active",
+  "author": [
+    {
+      "@type": "Person",
+      "identifier": "mdejong",
+      "givenName": "Maarten",
+      "familyName": "de Jong",
+      "email": "mjg@nikhef.nl"
+    },
+    {
+      "@type": "Person",
+      "identifier": "aheijboer",
+      "givenName": "Aart",
+      "familyName": "Heijboer",
+      "email": "aart.heijboer@nikhef.nl"
+    },
+    {
+      "@type": "Person",
+      "identifier": "tgal",
+      "givenName": "Tamas",
+      "familyName": "Gal",
+      "email": "tgal@km3net.de"
+    }
+  ],
+  "maintainer": [
+    {
+      "@type": "Person",
+      "identifier": "laphecetche",
+      "givenName": "Laurent",
+      "familyName": "Aphecetche",
+      "email": "laurent.aphecetche@subatech.in2p3.fr"
+    }
+  ],
+  "issueTracker": "https://git.km3net.de/common/km3net-dataformat-/issues",
+  "softwareHelp": "https://git.km3net.de/common/km3net-dataformat-/issues",
+  "readme": "https://git.km3net.de/common/km3net-dataformat/-/blob/master/README.md",
+  "documentation": "https://common.pages.km3net.de/km3net-dataformat/",
+  "planning": "https://git.km3net.de/common/km3net-dataformat/-/boards",
+  "workinggroups": [
+    "CompSoft WG"
+  ],
+  "keywords": [
+    "CompSoft WG",
+    "confidentiality: internal",
+    "criticality: core",
+    "management: unassigned",
+    "repotype: package",
+    "stage: active",
+    "tier: cross-tier"
+  ],
+  "programmingLanguage": "C++"
+}

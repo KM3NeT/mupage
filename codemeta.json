@@ -1,0 +1,67 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "MUPAGE",
+  "description": "MUPAGE generates atmospheric muon bundles around underwater neutrino telescopes using parametric formulas so that a fast simulation of muon tracks and livetimes is possible without a full CR showers simulation and muon propagation.",
+  "identifier": "https://git.km3net.de/simulation/mupage",
+  "url": "https://git.km3net.de/simulation/mupage",
+  "codeRepository": "https://git.km3net.de/simulation/mupage",
+  "issueTracker": "https://git.km3net.de/simulation/mupage/-/issues",
+  "version": "5.2.2",
+  "license": "https://opensource.org/licenses/BSD-3-Clause",
+  "maintainer": {
+    "@type": "Person",
+    "givenName": "Vladimir",
+    "familyName": "Kulikovskiy",
+    "email": "vkulikovskiy@km3net.de"
+  },
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "G. Carminati"
+    },
+    {
+      "@type": "Person",
+      "name": "M. Bazzotti"
+    },
+    {
+      "@type": "Person",
+      "name": "A. Margiotta"
+    },
+    {
+      "@type": "Person",
+      "name": "M. Spurio"
+    },
+    {
+      "@type": "Person",
+      "name": "V. Kulikovskiy"
+    },
+    {
+      "@type": "Person",
+      "name": "C. Distefano"
+    }
+  ],
+  "programmingLanguage": ["C++", "Shell"],
+  "datePublished": "2007-04-18",
+  "dateModified": "2025-11-01",
+  "applicationCategory": ["ScientificSoftware", "PhysicsSimulation"],
+  "keywords": [
+    "muon simulation",
+    "neutrino telescope",
+    "parametric generator",
+    "CAN surface",
+    "ANTARES",
+    "KM3NeT"
+  ],
+  "softwareRequirements": [
+    "C++17 or newer",
+    "CMake",
+    "GNU make",
+    "ROOT",
+    "km3net-dataformat (optional)",
+    "ANTARES I/O (optional)",
+    "CLHEP (optional for ANTARES format)"
+  ],
+  "runtimePlatform": ["Linux", "macOS"],
+  "buildConfiguration": ["GNU make", "CMake"]
+}

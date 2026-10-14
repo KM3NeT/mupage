@@ -1,0 +1,10 @@
+#type,name,number,comment
+
+int,WEIGHTLIST_GENERATION_AREA,0,Generation area (c.f. taglist document) [m2]
+int,WEIGHTLIST_GENERATION_VOLUME,0,Generation volume (c.f. taglist document) [m3]
+int,WEIGHTLIST_DIFFERENTIAL_EVENT_RATE,1,Event rate per unit of flux (c.f. taglist document) [GeV m2 sr]
+int,WEIGHTLIST_EVENT_RATE,2,Event rate [s-1]
+int,WEIGHTLIST_NORMALISATION,3,Event rate normalisation
+int,WEIGHTLIST_RESCALED_EVENT_RATE,4,Rescaled event rate [s-1]
+
+int,WEIGHTLIST_RUN_BY_RUN_WEIGHT,5, w[1]*DAQ_livetime / MC_evts_summary::n_gen (gseagen; [GeV m2 sr s]) or DAQ_livetime/MC_evts_summary::livetime_sim (mupage; [-])

@@ -1,0 +1,12 @@
+#type,name,number,comment
+
+int,W2LIST_GENHEN_GLOBAL_GEN_WEIGHT,0,Constant factor in the weight (global generation weight)
+int,W2LIST_GENHEN_EG,1,E gamma
+int,W2LIST_GENHEN_SIG,2,Cross section of the neutrion interaction
+int,W2LIST_GENHEN_COLUMN_DEPTH,3,Line integrated column density through the Earth for the neutrino direction
+int,W2LIST_GENHEN_P_EARTH,4,Transmission probability in the Earth
+int,W2LIST_GENHEN_REFF,5,Effective muon range
+int,W2LIST_GENHEN_BX,7,Bjorken x
+int,W2LIST_GENHEN_BY,8,Bjorken y
+int,W2LIST_GENHEN_ICHAN,9,Interaction channel
+int,W2LIST_GENHEN_CC,10,Charged current interaction flag

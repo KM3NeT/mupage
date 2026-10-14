@@ -1,0 +1,4 @@
+DEPTHmax        2.475    # maximum depth in km (not in km.w.e.)   
+Zmin         -278.151    # minimum z in m                   
+Zmax          313.971    # maximum z in m                   
+CANr          238.611    # can radius in m

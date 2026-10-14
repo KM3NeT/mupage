@@ -1,0 +1,172 @@
+----------------------------------------------------------------------------
+25 May 2026 (V. Kulikovskiy)
+----------------------------------------------------------------------------
+* clang code check in CI/CD
+* move from TRandom to mt19937
+* remove antcc (i.e. reading ANTRES detector files)
+* event time in native format
+* splitting OutputWriter
+* Decode substituted with CLI11
+
+----------------------------------------------------------------------------
+01 November 2025 (V. Kulikovskiy)
+----------------------------------------------------------------------------
+Weighting option added to speed up high energy muons production
+
+----------------------------------------------------------------------------
+27 January 2023 (V. Kulikovskiy)
+----------------------------------------------------------------------------
+v5.2.2 implementation of time ordered events
+
+----------------------------------------------------------------------------
+11 January 2022 (V. Kulikovskiy)
+----------------------------------------------------------------------------
+* std::ios::fixed|std::ios::floatfield -> std::ios::fixed, std::ios::floatfield
+
+----------------------------------------------------------------------------
+5th November 2021 - v5.1.1 New release (C. Distefano)
+----------------------------------------------------------------------------
+* Fixed value of ROOT_INCLUDE_PATH in Dockerfile
+
+----------------------------------------------------------------------------
+28th October 2021 - v5.1.0 New release (C. Distefano)
+----------------------------------------------------------------------------
+* Added track bundle info in the km3net-dataformat output file
+
+----------------------------------------------------------------------------
+1st September 2021 - v5.0.0 New release (C. Distefano)
+----------------------------------------------------------------------------
+* CLHEP now used only by antcc
+* Possibility to compile without antcc and antares io
+* Added configure script to manage link to external libraries
+* Added possibility to write output file in km3net-dataformat 
+
+----------------------------------------------------------------------------
+9th October 2019 - v4.1 New release (V. Kulikovskiy)
+----------------------------------------------------------------------------
+Evt tag is changed from freecan to fixedcan.
+
+----------------------------------------------------------------------------
+10th September 2019 - v4.0 New release (V. Kulikovskiy)
+----------------------------------------------------------------------------
+Can has now coordinates X, Y of the center.
+Evt tag is changed to "freecan: X Y Zmin Zmax R"
+
+----------------------------------------------------------------------------
+10th September 2019 - v3.9 New release (V. Kulikovskiy)
+----------------------------------------------------------------------------
+All flux parameters are now configurable.
+New evt tag "mupage_flux_parameters:" showing parameters set.
+
+----------------------------------------------------------------------------
+9th September 2019 - v3.8 New release (V. Kulikovskiy)
+----------------------------------------------------------------------------
+* New configurable parameter Emax is added. Also default value of 500 GeV is
+set for backward compatibility (so this parameter is not mandatory to set).
+
+----------------------------------------------------------------------------
+6th September 2018 - v3r6 New release (V.Kulikovskiy)
+----------------------------------------------------------------------------
+* New release for using the code on CentOS 7.
+* Time is now respect to the time of the bundle center arrival to the can
+(before it was respect to the first muon).
+* The first muon is the bundle is not forced now to reach the can (before
+there was a loop regenerating its position until it reaches the can).
+* Energy of the muons in the can is corrected for the path from the plane of
+interaction to the can (positive/negative). It is assuming the same distance
+as for the time correction.
+* Multiplicity and the energy in the bundle tag is now related to the bundle
+at the point of generation on the can (before it was simply a sum of the muons
+reached the can).
+
+
+----------------------------------------------------------------------------
+16th April 2010 - v3r5 New release (G.Carminati)
+----------------------------------------------------------------------------
+* New release for using the code on Scientific Linux 5
+
+----------------------------------------------------------------------------
+29th July 2009 - v3r4 Second order modification (G.Carminati)
+----------------------------------------------------------------------------
+* After the correction of the zenith angle parameter defining the maximum 
+  value for the Hit-or-Miss method (Nmax) implemented in the version v3r1 
+  (24th Nov 2008), the parameter MFactor in dat/parameters.dat is redundant.
+  Thus it is deleted from the list of input parameters as well as all the 
+  related error checks.
+
+----------------------------------------------------------------------------
+3rd June 2009 - v3r4 New release (G.Carminati)
+----------------------------------------------------------------------------
+* Since the first version of MUPAGE, the minimum generable energy for a muon 
+  was 20 GeV. However the parametric formulas are valid in the range between
+  1 GeV and 500 TeV, thus the computation of the flux, and consequently of 
+  the livetime, was underestimate of about 10%. 
+  Now, the minimum energy is set up at 1 GeV and the user can not choose 
+  anymore another value in the input file (dat/parameters.dat). That is true
+  also for the maximum energy. 
+  To generate events at energy larger than 1 GeV, the user can (still) 
+  select the chosen value using the parameter Ethreshold.
+
+
+----------------------------------------------------------------------------
+26th March 2009 - v3r3 New release (G.Carminati)
+----------------------------------------------------------------------------
+* Implementation of a new class (ReadDetector) in order to read the new 
+  detector file format.
+* Implementation of Doxygen
+
+
+----------------------------------------------------------------------------
+23rd December 2008 - v3r2 New release (G.Carminati)
+----------------------------------------------------------------------------
+* The switching between the coordinate systems was not implemented correctly
+  in the version v3r1. Now the problem is fixed.
+
+
+----------------------------------------------------------------------------
+24th November 2008 - v3r1 New version (G.Carminati)
+----------------------------------------------------------------------------
+* Found and fixed a bug concerning the coordinate system used. The switching
+  between the azimuth angle and the phi angle was not correctly defined 
+  (see talk at Rome PAW Meeting Nov 2008)
+* Found and fixed an error also in the calculation of the impact point 
+  z-position on the barrel surface of the shower axis. The error is 
+  negligible because it is implemented before of the Hit-or-Miss selection
+* The zenith angle parameter defining the maximum value for the Hit-or-Miss 
+  method (Nmax) has been changed. The function has now a maximum for zenith 
+  angle q' = \pi/2 + 1/2 arctan(-R/2H)
+* (ONLY IN THE ANTARES FORMAT) 
+  Insertion of a new tag in the event output file: "track_bundle". The new 
+  tag gives information about the multiplicity, the impact point position 
+  (x, y, z) and the direction (vx, vy, vz) of the shower axis. Because the 
+  generated multiplicity of the shower has been included in this new tag, 
+  the previous tag "mult" has been deleted. 
+
+
+----------------------------------------------------------------------------
+12th November 2007 - v2r2 Release running on SL4-32bit (G.Carminati)
+----------------------------------------------------------------------------
+* Indispensable modifications to use the code on Scientific Linux 4
+* Substitution of the deprecated class <strstream> with the class <sstream>
+* Insertion of a new parameter in dat/parameters.dat file: Ethreshold.
+  This parameter corresponds to the minimum energy of the threshold. If the
+  user do not want to use a threshold for the energy, the parameter has to 
+  be set equal to the value of minimum energy (Emin).
+
+
+----------------------------------------------------------------------------
+27th June 2007 - v2r1 New version (G.Carminati)
+----------------------------------------------------------------------------
+* Substitution of random generator: TRandom3
+* Insertion of a new parameter in dat/parameters.dat file: EnlargedCANr,
+  i.e. how many meters are necessaries to enlarged the CAN radius to
+  avoid losing events
+  (for $THRONG_DIR/DETECTOR/l05_c09_s00.det detector, we suggest 300 m)
+* Insertion of livetime information in the header of output file; the 
+  livetime format is:
+  livetime: average_livetime_in_seconds    statistical_error_in_seconds
+
+
+----------------------------------------------------------------------------
+18th April 2007 - v1r1 First release of the code (G.Carminati)
+----------------------------------------------------------------------------

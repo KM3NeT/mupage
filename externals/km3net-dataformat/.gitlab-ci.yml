@@ -1,0 +1,213 @@
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: "$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS"
+      when: never
+    - if: "$CI_COMMIT_BRANCH"
+    - if: "$CI_COMMIT_TAG"
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  BUILD_IMAGE: git.km3net.de:4567/common/dockerfiles/base/rockylinux9-rootv6.32.02:2024-10-02
+
+stages:
+  - build
+  - docs
+  - test-definitions
+  - test
+  - update-issues
+
+build-root6:
+  image: $BUILD_IMAGE
+  stage: build
+  script:
+    - make
+
+.build-root6-template:
+  stage: build
+  script:
+    - make
+
+.build-cmake-template:
+  before_script:
+    ##
+    ## Install ssh-agent if not already installed, it is required by Docker.
+    ## (change apt-get to yum if you use an RPM-based image)
+    ##
+    - "command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )"
+
+    ##
+    ## Run ssh-agent (inside the build environment)
+    ##
+    - eval $(ssh-agent -s)
+
+    ##
+    ## Give the right permissions, otherwise ssh-add will refuse to add files
+    ## Add the SSH key stored in SSH_PRIVATE_KEY file type CI/CD variable to the agent store
+    ##
+    - chmod 400 "$SSH_PRIVATE_KEY"
+    - ssh-add "$SSH_PRIVATE_KEY"
+
+    ##
+    ## Create the SSH directory and give it the right permissions
+    ##
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+
+    # Add host key to known keys
+    - ssh-keyscan -t rsa git.km3net.de >> ~/.ssh/known_hosts
+
+    ##
+  stage: build
+  script:
+    - CMAKE_GENERATOR="Ninja" cmake --workflow --preset release
+  artifacts:
+    paths:
+      - install-release
+
+build-cmake:
+  extends: .build-cmake-template
+  image: $BUILD_IMAGE
+
+build-cmake-gcc11-root-6.36:
+  extends: .build-cmake-template
+  image: git.km3net.de:4567/common/dockerfiles/base/rockylinux9-cpp-root-builder:6.36.10-min-gcc11.5-cxx17-1
+
+build-cmake-clang19-root-6.32:
+  extends: .build-cmake-template
+  image: git.km3net.de:4567/common/dockerfiles/base/rockylinux9-cpp-root-builder:6.32.20-min-clang19-cxx17-1
+  variables:
+    CC: clang
+    CXX: clang++
+
+build-root6-gcc11-root-6.36:
+  extends: .build-root6-template
+  image: git.km3net.de:4567/common/dockerfiles/base/rockylinux9-cpp-root-builder:6.36.10-min-gcc11.5-cxx17-1
+
+build-root6-clang19-root-6.32:
+  extends: .build-root6-template
+  image: git.km3net.de:4567/common/dockerfiles/base/rockylinux9-cpp-root-builder:6.32.20-min-clang19-cxx17-1
+
+build-macos-m1:
+  stage: build
+  script:
+    - CMAKE_GENERATOR="Ninja" cmake --workflow --preset release
+  allow_failure: true
+  tags:
+    - macos-m1-shell
+
+build-make-macos-m2:
+  stage: build
+  script:
+    - make
+  allow_failure: true
+  tags:
+    - macos-m2-shell
+
+definitions:
+  image: $BUILD_IMAGE
+  stage: build
+  script:
+    - cd definitions
+    - make
+
+pages:
+  image: $BUILD_IMAGE
+  stage: docs
+  script:
+    - doxygen
+    - mkdir public
+    - mv docs/html/* public && rm -r docs/html
+    - mv docs/* public
+  dependencies:
+    - build-root6
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+
+python:
+  image: docker.km3net.de/base/python:3
+  stage: test-definitions
+  script:
+    - cd definitions
+    - make
+    - for file in $(echo *.py); do python $file; done
+
+julia:
+  image: docker.km3net.de/base/julia:1.6
+  stage: test-definitions
+  script:
+    - cd definitions
+    - make
+    - for file in $(echo *.jl); do julia $file; done
+
+cpp:
+  image: $BUILD_IMAGE
+  stage: test-definitions
+  script:
+    - cd definitions
+    - make
+    - for file in $(echo *.hh); do gcc $file -fsyntax-only; done
+
+python-cmake:
+  image: docker.km3net.de/base/python:3
+  stage: test-definitions
+  dependencies:
+    - build-cmake
+  needs:
+    - build-cmake
+  script:
+    - cd install-release/include/km3net-dataformat/definitions
+    - for file in $(echo *.py); do python $file; done
+
+julia-cmake:
+  image: docker.km3net.de/base/julia:1.6
+  stage: test-definitions
+  dependencies:
+    - build-cmake
+  needs:
+    - build-cmake
+  script:
+    - cd install-release/include/km3net-dataformat/definitions
+    - for file in $(echo *.jl); do julia $file; done
+
+cpp-cmake:
+  image: $BUILD_IMAGE
+  stage: test-definitions
+  dependencies:
+    - build-cmake
+  needs:
+    - build-cmake
+  script:
+    - cd install-release/include/km3net-dataformat/definitions
+    - for file in $(echo *.hh); do gcc $file -fsyntax-only; done
+
+test:
+  image: $BUILD_IMAGE
+  stage: test
+  script:
+    - make test
+
+.test-template:
+  stage: test
+  script:
+    - make test
+
+test-gcc11-root-6.36:
+  extends: .test-template
+  image: git.km3net.de:4567/common/dockerfiles/base/rockylinux9-cpp-root-builder:6.36.10-min-gcc11.5-cxx17-1
+
+test-clang19-root-6.32:
+  extends: .test-template
+  image: git.km3net.de:4567/common/dockerfiles/base/rockylinux9-cpp-root-builder:6.32.20-min-clang19-cxx17-1
+
+merge-requests:
+  image: docker.km3net.de/base/python:3
+  stage: update-issues
+  script:
+    - pip install -U python-gitlab
+    - python scripts/create_update_issues.py
+  only:
+    - tags
