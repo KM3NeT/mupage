@@ -12,7 +12,6 @@ The code is maintained by the KM3NeT collaboration since v3r5.
 
 - The code tested on gcc version 11.4.0 (Ubuntu 22.04.5 LTS), root-6.28.04, 11.5.0 (Rocky Linux9)
 - It was also tested on macOS Sequoia (with CMake only)
-- Doxygen documentation is available internally at <https://simulation.pages.km3net.de/mupage>
 
 Then you can build the code using either make or CMake.
 ### Build with make
