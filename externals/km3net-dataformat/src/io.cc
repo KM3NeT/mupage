@@ -1,7 +1,0 @@
-#include "km3net-dataformat/offline/Vec.hh"
-#include "km3net-dataformat/offline/Evt.hh"
-#include "km3net-dataformat/offline/Trk.hh"
-#include "km3net-dataformat/offline/Hit.hh"
-#include "km3net-dataformat/offline/Head.hh"
-#include "km3net-dataformat/offline/io_ascii.hh"
-#include "km3net-dataformat/offline/io_online.hh"
