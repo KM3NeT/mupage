@@ -503,6 +503,8 @@ void ParseArgs(int argc, char **argv) {
         return fmt->make_help(app, name, mode);
       });
 
+  //make error on unknown variables in the config file
+  app.allow_config_extras(CLI::config_extras_mode::error);
   // config file i.e. parameter file
   std::vector<std::string> filenames;
   app.add_option("-o,--output", filenames,
